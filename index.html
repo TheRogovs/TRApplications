@@ -24,7 +24,6 @@
       position: relative;
     }
 
-    /* Bouncing Water Droplets Canvas Background */
     #canvas-bg {
       position: fixed;
       top: 0;
@@ -283,7 +282,6 @@
   </div>
 
   <script>
-    // Canvas animation for vertical bouncing water droplets
     const canvas = document.getElementById('canvas-bg');
     const ctx = canvas.getContext('2d');
 
@@ -339,11 +337,11 @@
     }
     animate();
 
-    // Submission handler sending data to Discord Webhook
     async function handleSubmit(e) {
       e.preventDefault();
 
-      const webhookUrl = "https://discord.com/api/webhooks/1542952700789006468/KkAEIzgqN-_1wguftZvZ4ud4qQb0Cq8ZaDlWQZqVCewNqmmtVNfiRx8ayr7-tOPxdTSi";
+      // Tvoj Cloudflare Worker proxy URL
+      const workerUrl = "https://launcher-form-proxy.cocacola1fran.workers.dev/";
 
       const payload = {
         username: "Application Bot",
@@ -367,24 +365,20 @@
       };
 
       try {
-        const response = await fetch(webhookUrl, {
+        const response = await fetch(workerUrl, {
           method: "POST",
-          headers: { 
-            "Content-Type": "application/json" 
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
 
-        if (response.ok || response.status === 204) {
+        if (response.ok) {
           alert("Application submitted successfully!");
           document.getElementById('appForm').reset();
         } else {
-          console.error("Discord Error:", response.status, response.statusText);
-          alert("Failed to submit. Status code: " + response.status);
+          alert("Failed to submit application.");
         }
       } catch (err) {
-        console.error("Network Error:", err);
-        alert("A network error occurred. Check browser console (F12) for details.");
+        alert("A network error occurred.");
       }
     }
   </script>
