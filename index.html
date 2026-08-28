@@ -185,8 +185,8 @@
 
   <div class="container">
     <div class="header-box">
-      <h1>Minecraft Launcher Staff Application</h1>
-      <p>Join our team! Please fill out the form below carefully.</p>
+      <h1>Minecraft Launcher Application</h1>
+      <p>Apply to join our team! Please fill out the fields below carefully.</p>
       <ul class="requirements-list">
         <li>Must be <strong>15+ years old</strong>.</li>
         <li>Must have a working microphone and active Discord.</li>
@@ -339,13 +339,14 @@
     }
     animate();
 
-    // Submission handler with your Discord Webhook
+    // Submission handler sending data to Discord Webhook
     async function handleSubmit(e) {
       e.preventDefault();
 
       const webhookUrl = "https://discord.com/api/webhooks/1542952700789006468/KkAEIzgqN-_1wguftZvZ4ud4qQb0Cq8ZaDlWQZqVCewNqmmtVNfiRx8ayr7-tOPxdTSi";
 
       const payload = {
+        username: "Application Bot",
         embeds: [{
           title: "📥 New Minecraft Launcher Application",
           color: 10834423,
@@ -358,7 +359,7 @@
             { name: "Daily Uploads", value: document.querySelector('input[name="daily"]:checked')?.value || "N/A", inline: true },
             { name: "50+ Views Avg", value: document.querySelector('input[name="views"]:checked')?.value || "N/A", inline: true },
             { name: "Channel Link", value: document.getElementById('channel').value || "N/A" },
-            { name: "Availability", value: document.getElementById('hours').value || "N/A" },
+            { name: "Weekly Hours", value: document.getElementById('hours').value || "N/A" },
             { name: "Experience", value: document.getElementById('experience').value || "None provided" }
           ],
           timestamp: new Date().toISOString()
@@ -368,18 +369,22 @@
       try {
         const response = await fetch(webhookUrl, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json" 
+          },
           body: JSON.stringify(payload)
         });
 
-        if (response.ok) {
+        if (response.ok || response.status === 204) {
           alert("Application submitted successfully!");
           document.getElementById('appForm').reset();
         } else {
-          alert("Failed to submit. Please check your connection.");
+          console.error("Discord Error:", response.status, response.statusText);
+          alert("Failed to submit. Status code: " + response.status);
         }
       } catch (err) {
-        alert("An error occurred while sending your application.");
+        console.error("Network Error:", err);
+        alert("A network error occurred. Check browser console (F12) for details.");
       }
     }
   </script>
