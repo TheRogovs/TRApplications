@@ -151,7 +151,8 @@
       color: #d4d4d8;
     }
 
-    button.submit-btn {
+    button.submit-btn,
+    a.submit-btn {
       width: 100%;
       background: linear-gradient(135deg, #9333ea, #6b21a8);
       color: white;
@@ -163,12 +164,26 @@
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
       transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
     }
 
-    button.submit-btn:hover {
+    button.submit-btn:hover,
+    a.submit-btn:hover {
       background: linear-gradient(135deg, #a855f7, #7e22ce);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .cta-row a.submit-btn {
+      flex: 1;
     }
 
     @keyframes float {
@@ -279,10 +294,10 @@
 
       <button type="submit" class="submit-btn">Submit Application</button>
 
-<div class="cta-row">
-  <a class="submit-btn" href="https://therogovs.github.io/TheRogov//">Go Back</a>
-  <a class="submit-btn" href="https://discord.com/invite/cg3CDGxMSU" target="_blank" rel="noopener">Join Discord</a>
-</div>
+      <div class="cta-row">
+        <a class="submit-btn" href="https://therogovs.github.io/TheRogov//">Go Back</a>
+        <a class="submit-btn" href="https://discord.com/invite/cg3CDGxMSU" target="_blank" rel="noopener">Join Discord</a>
+      </div>
       
     </form>
   </div>
